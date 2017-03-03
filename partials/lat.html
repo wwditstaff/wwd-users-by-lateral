@@ -1,3 +1,12 @@
+<style>
+    .odd {
+        background-color: lightgray;
+    }
+    .even {
+        background-color: transparent;
+    }
+</style>
+
 <div class="row" >
     <div class="col-md-2 col-sm-2 col-xs-0">&nbsp;</div>
     <div class="col-md-4 col-sm-4">
@@ -5,7 +14,9 @@
     <button ng-click="vm.clearSearch()">Clear</button>
     </div>
 </div>
-<div class="row" ng-repeat="lateral in vm.laterals | filter:vm.search | orderBy: 'LatName'">
+<div class="row"
+     ng-repeat="lateral in vm.laterals | filter:vm.search | orderBy: 'LatName'"
+     ng-class-even="'even'" ng-class-odd="'odd'" >
     <a href="/lat/{{lateral.id}}">
         <div class="col-md-2 col-sm-2 col-xs-0">&nbsp;</div>
         <div class="col-md-4 col-sm-4">{{lateral.LatName}}</div>

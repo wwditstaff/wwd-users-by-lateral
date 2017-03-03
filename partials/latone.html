@@ -1,3 +1,12 @@
+<style>
+    .odd {
+        background-color: lightgray;
+    }
+    .even {
+        background-color: transparent;
+    }
+</style>
+
 <div class="row">
     <div class="col-md-10 col-md-offset-1 col-sm-10">
     <h3>{{ vm.lateralname }}</h3>
@@ -11,7 +20,8 @@
         <div class="col-md-1 col-sm-2">Account</div>
         <div class="col-md-3 col-sm-4">Account Name</div>
 </div>
-<div class="row" ng-repeat="meter in vm.meters">
+<div class="row" ng-repeat="meter in vm.meters"
+     ng-class-even="'even'" ng-class-odd="'odd'" >
     <a href="/lat/{{lateral.id}}">
         <div class="col-md-1 col-md-offset-1 col-sm-2">{{meter.lateral}}</div>
         <div class="col-md-1 col-sm-2">{{meter.meter}}</div>
