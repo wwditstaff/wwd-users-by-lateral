@@ -1,0 +1,9 @@
+<div><h3>{{vm.title}}</h3></div>
+<hr>
+<div class="row">
+    <div class="col-sm-1 col-lg-1 col-md-1">&nbsp;</div>
+    <div ng-repeat="m in vm.menu">
+        <div class="col-sm-1 col-lg-1 col-md-1"><a href="{{ m.path }}">{{ m.name }}</a></div>
+    </div>
+</div>
+<hr>

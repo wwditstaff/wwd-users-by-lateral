@@ -1,0 +1,34 @@
+(function (angular) {
+    var appSettings = {
+        title   : "Meters and Accounts by Lateral",
+        version : 1.0,
+        author  : "Jim Carter",
+        apiUrlBase : 'https://cdata.api.wwddata.com/api.rsc',
+        apiAuth: "7v9E0i9g7Q2i2v7V5d3t",
+    };
+
+    angular
+        .module("ublat", ["ngRoute"])
+        .constant("appSettings", appSettings)
+        .config(
+            function ($locationProvider, $routeProvider) {
+                $locationProvider.html5Mode(true);
+
+                $routeProvider
+                    .when("/lat", {
+                        templateUrl: "/partials/lat.html",
+                        controller: "latController",
+                        controllerAs: "vm"
+                    })
+                    .when("/lat/:id", {
+                        templateUrl: "/partials/latone.html",
+                        controller: "latOneController",
+                        controllerAs: "vm"
+                    })
+                    .otherwise({
+                        templateUrl: "/partials/home.html",
+                        controller: "latHomeController",
+                        controllerAs: "vm"
+                    });
+            })
+} (window.angular));

@@ -1,0 +1,15 @@
+<div class="row" >
+    <div class="col-md-2 col-sm-2 col-xs-0">&nbsp;</div>
+    <div class="col-md-4 col-sm-4">
+      <input type="text" ng-model="vm.search.LatName" ng-change="vm.saveSearch()" placeholder="Lateral" >
+    <button ng-click="vm.clearSearch()">Clear</button>
+    </div>
+</div>
+<div class="row" ng-repeat="lateral in vm.laterals | filter:vm.search | orderBy: 'LatName'">
+    <a href="/lat/{{lateral.id}}">
+        <div class="col-md-2 col-sm-2 col-xs-0">&nbsp;</div>
+        <div class="col-md-4 col-sm-4">{{lateral.LatName}}</div>
+    </a>
+</div>
+<hr/>
+<i>Version : {{ vm.versionInfo }} </i>

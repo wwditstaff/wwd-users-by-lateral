@@ -1,0 +1,17 @@
+{
+  "name": "ublat",
+  "version": "1.0.0",
+  "description": "Users By Lateral",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "superstatic "
+  },
+  "author": "Jim Carter",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.2",
+    "angular-route": "^1.6.2",
+    "superstatic": "^4.0.3"
+  }
+}
