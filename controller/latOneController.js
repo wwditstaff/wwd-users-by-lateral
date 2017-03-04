@@ -2,7 +2,7 @@
     angular
         .module("ublat")
         .controller('latOneController',
-            ["appSettings", "$http", "$routeParams", function (appSettings, $http, $routeParams) {
+            ["appSettings", "$http", "$routeParams", "$window", function (appSettings, $http, $routeParams, $window) {
                 var vm = this;
 
                 vm.versionInfo = appSettings.version;

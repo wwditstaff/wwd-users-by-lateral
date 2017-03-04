@@ -1,26 +1,18 @@
-<style>
-    .odd {
-        background-color: lightgray;
-    }
-    .even {
-        background-color: transparent;
-    }
-</style>
+<div class="container-fluid">
 
-<div class="row" >
-    <div class="col-md-2 col-sm-2 col-xs-0">&nbsp;</div>
-    <div class="col-md-4 col-sm-4">
+<div class="flexrow" >
+    <div class="item">
       <input type="text" ng-model="vm.search.LatName" ng-change="vm.saveSearch()" placeholder="Lateral" >
     <button ng-click="vm.clearSearch()">Clear</button>
     </div>
 </div>
-<div class="row"
+<div class="flexrow"
      ng-repeat="lateral in vm.laterals | filter:vm.search | orderBy: 'LatName'"
-     ng-class-even="'even'" ng-class-odd="'odd'" >
+     ng-class="{oddRow: $index % 2 == 0 }">
     <a href="/lat/{{lateral.id}}">
-        <div class="col-md-2 col-sm-2 col-xs-0">&nbsp;</div>
-        <div class="col-md-4 col-sm-4">{{lateral.LatName}}</div>
+        <div class="item">{{lateral.LatName}}</div>
     </a>
 </div>
 <hr/>
 <i>Version : {{ vm.versionInfo }} </i>
+</div>
