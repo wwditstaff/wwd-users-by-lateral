@@ -18,24 +18,29 @@
                     var storedval = "";
                     storedval = localStorage.getItem("Meter");
                     if ( storedval ) {
-                        vm.search.LatName = storedval;
+                        vm.search.searchfield = storedval;
                     } else {
                         clearSearch();
                     }
                 }
 
                 function clearSearch() {
-                    vm.search.LatName = "";
+                    vm.search.searchfield = "";
                     saveSearch();
                 }
 
                 function saveSearch() {
-                    console.log('saveSearch(', vm.search.Meter, ')');
+                    console.log('saveSearch(', vm.search.searchfield, ')');
 
                     if ( ! vm.search ) {
                         localStorage.setItem("Meter", "" );
                     } else {
-                        localStorage.setItem("Meter", vm.search.Meter );
+                        var s = vm.search.searchfield;
+                        localStorage.setItem("Meter", s );
+                        vm.search.meter = s;
+                        vm.search.geo = s;
+                        vm.search.account = s;
+                        vm.search.fullname = s;
                     }
                 }
 
@@ -60,6 +65,7 @@
                                 } else {
                                     vm.lateralname = "--";
                                 }
+
                             },
                             // Error
                             function (data) {

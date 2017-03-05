@@ -25,6 +25,11 @@
                         controller: "latOneController",
                         controllerAs: "vm"
                     })
+                    .when("/meter/:id", {
+                        templateUrl: "/partials/meter.html",
+                        controller: "meterController",
+                        controllerAs: "vm"
+                    })
                     .otherwise({
                         templateUrl: "/partials/home.html",
                         controller: "latHomeController",
