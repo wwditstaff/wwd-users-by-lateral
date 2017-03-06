@@ -5,10 +5,10 @@
             <strong>Account:</strong>
         </div>
     </div>
-    <div ng-repeat="item in vm.account" >
+    <div ng-repeat="item in vm.account " >
         <div class="flexrow" ng-class="{oddRow: $index % 2 == 0}" >
             <div class="item">{{item.name}}</div>
-            <div class="item-wide"><strong>{{item.val}}</strong></div>
+            <div class="item"><strong>{{item.val}}</strong></div>
         </div>
     </div>
     <hr>
@@ -17,10 +17,11 @@
             <strong>Contacts:</strong>
         </div>
     </div>
-    <div ng-repeat="item in vm.contacts" >
+    <div ng-repeat="item in vm.contacts | orderBy:['name','val'] " >
         <div class="flexrow" ng-class="{oddRow: $index % 2 == 0}" >
             <div class="item">{{item.name}}</div>
-            <div class="item-wide"><strong>{{item.val}}</strong></div>
+            <div class="item"><strong>{{item.val}}</strong></div>
+            <div class="item"><strong>{{item.type}}</strong></div>
         </div>
     </div>
 </div>

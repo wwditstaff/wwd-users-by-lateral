@@ -43,21 +43,28 @@
                 }
 
                 function loadContacts( id ) {
-                    var url = appSettings.apiUrlBase + '/wmis-acct-contacts(' + id + ')';
+                    var url = appSettings.apiUrlBase + '/wp-sp-api-acctcontacts';
+                    var formData = {
+                        account: id
+                    };
                     var config = {
                         headers: {
                             'x-cdata-authtoken': appSettings.apiAuth
                         }
                     };
 
-                    $http.get(url, config)
+                    $http.post(url, formData, config)
                         .then(
                             // Success
                             function (data) {
-                                var c = data.data;
+                                var c = data.data.value;
                                 for ( var i = 0; i < c.length; i++ ) {
                                     var x = {};
-                                    vm.contacts.push( {name: c[i].fullname, val: c[i].Details});
+                                    vm.contacts.push( {
+                                        name: c[i].fullname,
+                                        val: c[i].method,
+                                        type: c[i].type
+                                    });
                                 }
                             },
                             // Error
