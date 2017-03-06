@@ -21,7 +21,7 @@
          ng-repeat="meter in vm.meters | filter:vm.search.searchfield "
          ng-class="{oddRow: $index % 2 == 0 }">
         <div class="item-opt">{{meter.lateral}}</div>
-        <div class="item">{{meter.meter}}</div>
+        <div class="item"><a href="/meter/{{meter.meter}}">{{meter.meter}}</a></div>
         <div class="item-opt">{{meter.geo}}</div>
         <div class="item">{{meter.account}}</div>
         <div class="item-wide-opt">{{meter.fullname}}</div>
