@@ -30,6 +30,11 @@
                         controller: "meterController",
                         controllerAs: "vm"
                     })
+                    .when("/account/:id", {
+                        templateUrl: "/partials/acct.html",
+                        controller: "acctController",
+                        controllerAs: "vm"
+                    })
                     .otherwise({
                         templateUrl: "/partials/home.html",
                         controller: "latHomeController",

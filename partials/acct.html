@@ -1,0 +1,28 @@
+<div class="container-fluid">
+
+    <div class="flexrow">
+        <div class="item">
+            <strong>Account:</strong>
+        </div>
+    </div>
+    <div ng-repeat="item in vm.account" >
+        <div class="flexrow" ng-class="{oddRow: $index % 2 == 0}" >
+            <div class="item">{{item.name}}</div>
+            <div class="item-wide"><strong>{{item.val}}</strong></div>
+        </div>
+    </div>
+    <hr>
+    <div class="flexrow">
+        <div class="item">
+            <strong>Contacts:</strong>
+        </div>
+    </div>
+    <div ng-repeat="item in vm.contacts" >
+        <div class="flexrow" ng-class="{oddRow: $index % 2 == 0}" >
+            <div class="item">{{item.name}}</div>
+            <div class="item-wide"><strong>{{item.val}}</strong></div>
+        </div>
+    </div>
+</div>
+<hr/>
+<i>Version : {{ vm.versionInfo }} </i>
