@@ -8,7 +8,7 @@
     };
 
     angular
-        .module("ublat", ["ngRoute"])
+        .module("ublat", ["ngRoute", "LocalForageModule"])
         .constant("appSettings", appSettings)
         .config(
             function ($locationProvider, $routeProvider) {

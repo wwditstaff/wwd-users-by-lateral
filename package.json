@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.2",
+    "angular-localforage": "^1.3.5",
     "angular-route": "^1.6.2",
     "bootstrap": "^4.0.0-alpha.6",
     "superstatic": "^4.0.3"

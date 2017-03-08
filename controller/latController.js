@@ -2,7 +2,8 @@
     angular
         .module("ublat")
         .controller('latController',
-            ["appSettings", "$http", function (appSettings, $http) {
+            ["appSettings", "$http", "$localForage",
+                function (appSettings, $http, $localForage ) {
             var vm = this;
 
             vm.versionInfo = appSettings.version;
@@ -14,12 +15,17 @@
 
             function loadSearch() {
                 var storedval = "";
-                storedval = localStorage.getItem("LatName");
-                if ( storedval ) {
-                    vm.search.LatName = storedval;
-                } else {
-                    clearSearch();
-                }
+                $localForage.getItem("LatName")
+                    .then( function(data) {
+                        storedval = data;
+                        if ( storedval ) {
+                            vm.search.LatName = storedval;
+                        } else {
+                            clearSearch();
+                        }
+                    }, function() {
+                        clearSearch();
+                    });
             }
 
             function clearSearch() {
@@ -31,9 +37,9 @@
                 console.log('saveSearch(', vm.search.LatName, ')');
 
                 if ( ! vm.search ) {
-                    localStorage.setItem("LatName", "" );
+                    $localForage.setItem("LatName", "" );
                 } else {
-                    localStorage.setItem("LatName", vm.search.LatName );
+                    $localForage.setItem("LatName", vm.search.LatName );
                 }
             }
 

@@ -2,7 +2,8 @@
     angular
         .module("ublat")
         .controller('latOneController',
-            ["appSettings", "$http", "$routeParams", "$window", function (appSettings, $http, $routeParams, $window) {
+            ["appSettings", "$http", "$routeParams", "$window", "$localForage",
+                function (appSettings, $http, $routeParams, $window, $localForage ) {
                 var vm = this;
 
                 vm.versionInfo = appSettings.version;
@@ -16,12 +17,17 @@
 
                 function loadSearch() {
                     var storedval = "";
-                    storedval = localStorage.getItem("Meter");
-                    if ( storedval ) {
-                        vm.search.searchfield = storedval;
-                    } else {
-                        clearSearch();
-                    }
+                    $localForage.getItem("Meter")
+                        .then( function(data) {
+                            storedval = data;
+                            if ( storedval ) {
+                                vm.search.searchfield = storedval;
+                            } else {
+                                clearSearch();
+                            }
+                        }, function(data) {
+                            vm.search.searchfield = "";
+                        })
                 }
 
                 function clearSearch() {
@@ -33,10 +39,10 @@
                     console.log('saveSearch(', vm.search.searchfield, ')');
 
                     if ( ! vm.search ) {
-                        localStorage.setItem("Meter", "" );
+                        $localForage.setItem("Meter", "" );
                     } else {
                         var s = vm.search.searchfield;
-                        localStorage.setItem("Meter", s );
+                        $localForage.setItem("Meter", s );
                         vm.search.meter = s;
                         vm.search.geo = s;
                         vm.search.account = s;
