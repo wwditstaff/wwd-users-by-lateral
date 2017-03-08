@@ -37,7 +37,8 @@
                     .then(
                         // Success
                         function (data) {
-                            vm.authtoken = data.data.value;
+                            vm.authtoken = data.data.value[0].result;
+                            console.log("vm.authtoken:" , vm.authtoken);
                             process_result();
                         },
                         // Error
@@ -49,10 +50,16 @@
 
             function process_result() {
                 if ( vm.authtoken == "authorized") {
-                    $localForage.setItem("token", 'OK Authorized...' );
+                    var newid = uid(20);
+                    $localForage.setItem("token", newid );
                 } else {
                     $location.path('/login');
                 }
             }
+
+                function uid(len) {
+                    len = len || 7;
+                    return Math.random().toString(35).substr(2, len);
+                }
         }]);
 }(window.angular));
