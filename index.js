@@ -1,10 +1,10 @@
 (function (angular) {
     var appSettings = {
-        title   : "Meters and Accounts by Lateral",
-        version : 1.0,
-        author  : "Jim Carter",
-        apiUrlBase : 'https://cdata.api.wwddata.com/api.rsc',
-        apiAuth: "7v9E0i9g7Q2i2v7V5d3t",
+        title: "Meters and Accounts by Lateral",
+        version: 1.0,
+        author: "Jim Carter",
+        apiUrlBase: 'https://cdata.api.wwddata.com/api.rsc',
+        apiAuth: "7v9E0i9g7Q2i2v7V5d3t"
     };
 
     angular
@@ -15,6 +15,11 @@
                 $locationProvider.html5Mode(true);
 
                 $routeProvider
+                    .when("/login", {
+                        templateUrl: "/partials/login.html",
+                        controller: "loginController",
+                        controllerAs: "vm"
+                    })
                     .when("/lat", {
                         templateUrl: "/partials/lat.html",
                         controller: "latController",
@@ -40,5 +45,7 @@
                         controller: "latHomeController",
                         controllerAs: "vm"
                     });
-            })
-} (window.angular));
+            });
+
+
+}(window.angular));
