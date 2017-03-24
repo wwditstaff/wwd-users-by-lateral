@@ -17,17 +17,11 @@
     <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#2F3BA2">
 
-
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/partials/style.css">
 
-    <script
-            src="https://code.jquery.com/jquery-3.1.1.js"
-            integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
-            crossorigin="anonymous"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
     <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
     <script type="text/javascript" src="node_modules/angular-route/angular-route.min.js"></script>
@@ -36,7 +30,8 @@
     <script type="text/javascript" src="node_modules/angular-localforage/dist/angular-localForage.js"></script>
 
     <script type="text/javascript" src="index.js"></script>
-    <script type="text/javascript" src="component/menu.js"></script>
+    <script type="text/javascript" src="component/wwdmenu.js"></script>
+    <script type="text/javascript" src="service/authService.js"></script>
     <script type="text/javascript" src="controller/loginController.js"></script>
     <script type="text/javascript" src="controller/latHomeController.js"></script>
     <script type="text/javascript" src="controller/latController.js"></script>
@@ -44,14 +39,15 @@
     <script type="text/javascript" src="controller/meterController.js"></script>
     <script type="text/javascript" src="controller/acctController.js"></script>
     <script type="text/javascript" src="controller/loginController.js"></script>
+    <script type="text/javascript" src="controller/logoutController.js"></script>
 
-    <!--<script type="text/javascript" src="controller/one.js"></script>-->
-    <!--<script type="text/javascript" src="controller/editone.js"></script>-->
 </head>
 <body  ng-app="ublat" >
-    <menu></menu>
-    <div ng-view>
-        Angular routing hasn't loaded or been configured properly...
+    <wwdmenu></wwdmenu>
+    <div class="container">
+        <div ng-view>
+            Angular routing hasn't loaded or been configured properly...
+        </div>
     </div>
 </body>
 </html>

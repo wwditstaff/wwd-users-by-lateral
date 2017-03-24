@@ -2,9 +2,11 @@
     angular
         .module("ublat")
         .controller('latController',
-            ["appSettings", "$http", "$localForage", "$location",
-                function (appSettings, $http, $localForage, $location) {
+            ["appSettings", "$http", "$localForage", "$location", "authService",
+                function (appSettings, $http, $localForage, $location, authService) {
                     var vm = this;
+
+                    console.log('latController Start.');
 
                     vm.versionInfo = appSettings.version;
 
@@ -66,26 +68,11 @@
                             );
                     }
 
-                    function isAuthenticated(next) {
-                        var token = "";
-                        $localForage.getItem("token")
-                            .then(function (data) {
-                                token = data;
-                                if (token) {
-                                    next();
-                                } else {
-                                    $location.path('/login');
-                                }
-                            }, function () {
-                                $location.path('/login');
-                            });
-                    }
-
-                    isAuthenticated( dowork );
-
                     function dowork() {
                         initLateralList();
                         loadSearch();
                     }
+
+                    authService.isAuthenticated(dowork);
                 }]);
 }(window.angular));

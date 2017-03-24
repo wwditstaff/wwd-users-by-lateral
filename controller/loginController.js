@@ -52,6 +52,7 @@
                 if ( vm.authtoken == "authorized") {
                     var newid = uid(20);
                     $localForage.setItem("token", newid );
+                    $location.path('/');
                 } else {
                     $location.path('/login');
                 }

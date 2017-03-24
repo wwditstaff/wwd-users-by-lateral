@@ -1,6 +1,6 @@
 (function (angular) {
     var appSettings = {
-        title   : "Meters and Accounts by Lateral",
+        title   : "User's by Lateral",
         version : 1.0,
         author  : "Jim Carter",
         apiUrlBase : 'https://cdata.api.wwddata.com/api.rsc',
@@ -18,6 +18,11 @@
                     .when("/login", {
                         templateUrl: "/partials/login.html",
                         controller: "loginController",
+                        controllerAs: "vm"
+                    })
+                    .when("/logout", {
+                        templateUrl: "/partials/logout.html",
+                        controller: "logoutController",
                         controllerAs: "vm"
                     })
                     .when("/lat", {
@@ -40,6 +45,11 @@
                         controller: "acctController",
                         controllerAs: "vm"
                     })
+                    .when("/accounts", {
+                        templateUrl: "/partials/accounts.html",
+                        controller: "accountsController",
+                        controllerAs: "vm"
+                    })
                     .otherwise({
                         templateUrl: "/partials/home.html",
                         controller: "latHomeController",
@@ -48,10 +58,10 @@
             });
 
     // TODO add service worker code here
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-            .register('./service-worker.js')
-            .then(function() { console.log('Service Worker Registered'); });
-    };
+    // if ('serviceWorker' in navigator) {
+    //     navigator.serviceWorker
+    //         .register('./service-worker.js')
+    //         .then(function() { console.log('Service Worker Registered'); });
+    // };
 
 } (window.angular));

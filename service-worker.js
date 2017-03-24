@@ -19,6 +19,7 @@ var filesToCache = [
     '/index.html',
     '/index.js',
     '/controller/acctController.js',
+    '/controller/authService.js',
     '/controller/latController.js',
     '/controller/latHomeController.js',
     '/controller/latOneController.js',
