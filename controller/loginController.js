@@ -1,79 +1,65 @@
-(function (angular) {
+(function(angular) {
     angular
         .module("ublat")
-        .controller('loginController',
-            ["appSettings", "$http", "$routeParams", function (appSettings, $http, $routeParams) {
-                var vm = this;
+        .controller('loginController',["appSettings","$localForage","$http", "$location",
+            function(appSettings, $localForage, $http, $location) {
+            var vm = this;
+            vm.title = appSettings.title;
 
-                vm.versionInfo = appSettings.version;
-                vm.accountid = $routeParams.id;
+            vm.versionInfo = appSettings.version;
+            vm.username = "";
+            vm.password = "";
+            vm.authtoken = "";
 
-                vm.account = [];
-                vm.contacts = [];
+            vm.loginclick = function() {
+                console.log('username = ', vm.username );
+                console.log('password = ', vm.password );
+                try2auth(vm.username, vm.password );
 
-                function initData() {
-                    var url = appSettings.apiUrlBase + '/wmis-account(' + vm.accountid + ')';
-                    var config = {
-                        headers: {
-                            'x-cdata-authtoken': appSettings.apiAuth
+            }
+
+            function try2auth(user, pass) {
+                var url =
+                    appSettings.apiUrlBase + '/wp-sp-authorize/'
+
+                var formData = {
+                    username: user,
+                    userpass: pass
+                };
+
+                var config = {
+                    headers: {
+                        'x-cdata-authtoken': appSettings.apiAuth
+                    }
+                };
+
+                $http.post(url, formData, config)
+                    .then(
+                        // Success
+                        function (data) {
+                            vm.authtoken = data.data.value[0].result;
+                            console.log("vm.authtoken:" , vm.authtoken);
+                            process_result();
+                        },
+                        // Error
+                        function (data) {
+                            console.log(data);
                         }
-                    };
+                    );
+            }
 
-                    $http.get(url, config)
-                        .then(
-                            // Success
-                            function (data) {
-                                formatData(data.data);
-                                loadContacts(data.data.NAME_ID );
-                            },
-                            // Error
-                            function (data) {
-                                console.log(data);
-                            }
-                        );
+            function process_result() {
+                if ( vm.authtoken == "authorized") {
+                    var newid = uid(20);
+                    $localForage.setItem("token", newid );
+                } else {
+                    $location.path('/login');
                 }
+            }
 
-                function formatData(inp) {
-                    var x = vm.account;
-
-                    x.push( {name: "Account", val: inp.NAME_ID});
-                    x.push( {name: "Name", val: inp.FullName });
-                    x.push( {name: "Address", val: inp.Address1 + ', ' + inp.Address2 + ', ' + inp.Address3  });
-                    x.push( {name: "City, State Zip", val: inp.City + ', ' + inp.State + ' ' + inp.Zip });
+                function uid(len) {
+                    len = len || 7;
+                    return Math.random().toString(35).substr(2, len);
                 }
-
-                function loadContacts( id ) {
-                    var url = appSettings.apiUrlBase + '/wp-sp-api-acctcontacts';
-                    var formData = {
-                        account: id
-                    };
-                    var config = {
-                        headers: {
-                            'x-cdata-authtoken': appSettings.apiAuth
-                        }
-                    };
-
-                    $http.post(url, formData, config)
-                        .then(
-                            // Success
-                            function (data) {
-                                var c = data.data.value;
-                                for ( var i = 0; i < c.length; i++ ) {
-                                    var x = {};
-                                    vm.contacts.push( {
-                                        name: c[i].fullname,
-                                        val: c[i].method,
-                                        type: c[i].type
-                                    });
-                                }
-                            },
-                            // Error
-                            function (data) {
-                                console.log(data);
-                            }
-                        );
-                }
-
-                initData();
-            }]);
+        }]);
 }(window.angular));

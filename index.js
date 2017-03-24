@@ -15,6 +15,11 @@
                 $locationProvider.html5Mode(true);
 
                 $routeProvider
+                    .when("/login", {
+                        templateUrl: "/partials/login.html",
+                        controller: "loginController",
+                        controllerAs: "vm"
+                    })
                     .when("/lat", {
                         templateUrl: "/partials/lat.html",
                         controller: "latController",
