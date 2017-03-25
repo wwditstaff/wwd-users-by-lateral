@@ -16,17 +16,11 @@
                     vm.search = {};
                     vm.saveSearch = saveSearch;
                     vm.clearSearch = clearSearch;
-                    vm.page = 1;
-                    vm.pageSize = 10;
-                    vm.pageStart = function() {
-                        return ((( vm.page - 1 ) * pageSize) + 1 );
-                    };
 
                     function loadSearch() {
                         var storedval = "";
                         $localForage.getItem("Customer")
                             .then(function (data) {
-                                "use strict";
                                 storedval = data;
                                 if (storedval) {
                                     vm.search.Customer = storedval;
@@ -59,12 +53,13 @@
                                 'x-cdata-authtoken': appSettings.apiAuth
                             }
                         };
+                        console.log('Loading Data');
 
                         $http.get(url, config)
                             .then(
                                 // Success
                                 function (data) {
-                                    formatData(data.data);
+                                    vm.accounts = data.data.value;
                                 },
                                 // Error
                                 function (data) {
@@ -73,20 +68,21 @@
                             );
                     }
 
-                    function formatData(inp) {
-                        var accts = inp.value;
-                        for (var i = 0; i < accts.length; i++) {
-                            var account = {
-                                id: accts[i].id,
-                                name: accts[i].FullName
-                            }
-                            vm.accounts.push(account);
-                        }
-                    }
+                    // function formatData(inp) {
+                    //     var accts = inp.value;
+                    //     for (var i = 0; i < accts.length; i++) {
+                    //         var account = {
+                    //             id: accts[i].id,
+                    //             name: accts[i].FullName
+                    //         };
+                    //         vm.accounts.push(account);
+                    //     }
+                    //     console.log('Account:', vm.accounts.length );
+                    // }
 
                     function doWork() {
-                        clearSearch();
                         initData();
+                        loadSearch();
                     }
 
                     authService.isAuthenticated(doWork);

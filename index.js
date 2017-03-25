@@ -8,7 +8,7 @@
     };
 
     angular
-        .module("ublat", ["ngRoute", "LocalForageModule"])
+        .module("ublat", ["ngRoute", "LocalForageModule", "angularUtils.directives.dirPagination"])
         .constant("appSettings", appSettings)
         .config(
             function ($locationProvider, $routeProvider) {

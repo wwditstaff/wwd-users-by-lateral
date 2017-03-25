@@ -4,7 +4,7 @@
             <strong>Accounts</strong>
         </div>
         <div class="item">
-            <input type="text" ng-model="vm.search" ng-change="vm.saveSearch()" placeholder="Customer">
+            <input type="text" ng-model="vm.search.Customer" ng-change="vm.saveSearch()" placeholder="Customer">
             <button ng-click="vm.clearSearch()">Clear</button>
         </div>
     </div>
@@ -14,11 +14,13 @@
         <div class="item">Account Name</div>
     </div>
     <div class="flexrow"
-         ng-repeat="item in vm.accounts | filter:vm.search |  orderBy:'id' | startFrom: vm.pageStart() | limitTo: vm.pageSize  "
+         dir-paginate="item in vm.accounts | orderBy:'id' | itemsPerPage: 10 "
          ng-class="{oddRow: $index % 2 == 0}">
-        <div class="item">{{item.id}}</div>
-        <div class="item">{{item.name}}</div>
+
+        <div class="item">{{ item.id }}</div>
+        <div class="item">{{ item.FullName }}</div>
     </div>
+    <dir-pagination-controls></dir-pagination-controls>
 </div>
 <hr/>
 <i>Version : {{ vm.versionInfo }} </i>

@@ -18,7 +18,7 @@
     <!--<div class="row" ng-repeat="meter in vm.meters"-->
     <!--ng-class="{oddRow: $index % 2 == 0 }" >-->
     <div class="flexrow"
-         ng-repeat="meter in vm.meters | filter:vm.search.searchfield "
+         dir-paginate="meter in vm.meters | filter:vm.search.searchfield | itemsPerPage: 10 "
          ng-class="{oddRow: $index % 2 == 0 }">
         <div class="item-opt">{{meter.lateral}}</div>
         <div class="item"><a href="/meter/{{meter.meter}}">{{meter.meter}}</a></div>
@@ -26,6 +26,7 @@
         <div class="item"><a href="/account/{{meter.account}}">{{meter.account}}</a></div>
         <div class="item-wide-opt">{{meter.fullname}}</div>
     </div>
+    <dir-pagination-controls></dir-pagination-controls>
 </div>
 <hr/>
 <i>Version : {{ vm.versionInfo }} </i>

@@ -7,12 +7,13 @@
     </div>
 </div>
 <div class="flexrow"
-     ng-repeat="lateral in vm.laterals | filter:vm.search | orderBy: 'LatName'"
+     dir-paginate="lateral in vm.laterals | filter:vm.search | orderBy: 'LatName' | itemsPerPage: 10 "
      ng-class="{oddRow: $index % 2 == 0 }">
     <a href="/lat/{{lateral.id}}">
         <div class="item">{{lateral.LatName}}</div>
     </a>
 </div>
+    <dir-pagination-controls></dir-pagination-controls>
 <hr/>
 <i>Version : {{ vm.versionInfo }} </i>
 </div>
