@@ -18,12 +18,12 @@
                     vm.clearSearch = clearSearch;
 
                     function loadSearch() {
-                        var storedval = "";
+                        var storedValue = "";
                         $localForage.getItem("Customer")
                             .then(function (data) {
-                                storedval = data;
-                                if (storedval) {
-                                    vm.search.Customer = storedval;
+                                storedValue = data;
+                                if (storedValue) {
+                                    vm.search = storedValue;
                                 } else {
                                     clearSearch();
                                 }
@@ -33,16 +33,16 @@
                     }
 
                     function clearSearch() {
-                        vm.search.Customer = "";
+                        vm.search = "";
                         saveSearch();
                     }
 
                     function saveSearch() {
-                        console.log('saveSearch(', vm.search.Customer, ')');
+                        console.log('saveSearch(', vm.search, ')');
                         if (!vm.search) {
                             $localForage.setItem("Customer", "");
                         } else {
-                            $localForage.setItem("Customer", vm.search.Customer);
+                            $localForage.setItem("Customer", vm.search);
                         }
                     }
 
@@ -67,18 +67,6 @@
                                 }
                             );
                     }
-
-                    // function formatData(inp) {
-                    //     var accts = inp.value;
-                    //     for (var i = 0; i < accts.length; i++) {
-                    //         var account = {
-                    //             id: accts[i].id,
-                    //             name: accts[i].FullName
-                    //         };
-                    //         vm.accounts.push(account);
-                    //     }
-                    //     console.log('Account:', vm.accounts.length );
-                    // }
 
                     function doWork() {
                         initData();
