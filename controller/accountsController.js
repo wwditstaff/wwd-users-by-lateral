@@ -1,79 +1,94 @@
 (function (angular) {
     angular
         .module("ublat")
+        //
+        // accountsController: vm.accounts is an array of objects
+        // in the form:  { id: (customer Number), name: (customer name)
+        //
         .controller('accountsController',
-            ["appSettings", "$http", "$routeParams", "authService",
-                function (appSettings, $http, $routeParams, authService) {
-                var vm = this;
+            ["appSettings", "$http", "$localForage", "$routeParams", "authService",
+                function (appSettings, $http, $localForage, $routeParams, authService) {
+                    var vm = this;
 
-                vm.versionInfo = appSettings.version;
+                    vm.versionInfo = appSettings.version;
 
-                vm.account = [];
-                vm.contacts = [];
-
-                function initData() {
-                    var url = appSettings.apiUrlBase + '/wmis-account';
-                    var config = {
-                        headers: {
-                            'x-cdata-authtoken': appSettings.apiAuth
-                        }
+                    vm.accounts = [];
+                    vm.search = {};
+                    vm.saveSearch = saveSearch;
+                    vm.clearSearch = clearSearch;
+                    vm.page = 1;
+                    vm.pageSize = 10;
+                    vm.pageStart = function() {
+                        return ((( vm.page - 1 ) * pageSize) + 1 );
                     };
 
-                    $http.get(url, config)
-                        .then(
-                            // Success
-                            function (data) {
-                                formatData(data.data);
-                                loadContacts(data.data.NAME_ID );
-                            },
-                            // Error
-                            function (data) {
-                                console.log(data);
-                            }
-                        );
-                }
-
-                function formatData(inp) {
-                    var x = vm.account;
-
-                    x.push( {name: "Account", val: inp.NAME_ID});
-                    x.push( {name: "Name", val: inp.FullName });
-                    x.push( {name: "Address", val: inp.Address1 + ', ' + inp.Address2 + ', ' + inp.Address3  });
-                    x.push( {name: "City, State Zip", val: inp.City + ', ' + inp.State + ' ' + inp.Zip });
-                }
-
-                function loadContacts( id ) {
-                    var url = appSettings.apiUrlBase + '/wp-sp-api-acctcontacts';
-                    var formData = {
-                        account: id
-                    };
-                    var config = {
-                        headers: {
-                            'x-cdata-authtoken': appSettings.apiAuth
-                        }
-                    };
-
-                    $http.post(url, formData, config)
-                        .then(
-                            // Success
-                            function (data) {
-                                var c = data.data.value;
-                                for ( var i = 0; i < c.length; i++ ) {
-                                    var x = {};
-                                    vm.contacts.push( {
-                                        name: c[i].fullname,
-                                        val: c[i].method,
-                                        type: c[i].type
-                                    });
+                    function loadSearch() {
+                        var storedval = "";
+                        $localForage.getItem("Customer")
+                            .then(function (data) {
+                                "use strict";
+                                storedval = data;
+                                if (storedval) {
+                                    vm.search.Customer = storedval;
+                                } else {
+                                    clearSearch();
                                 }
-                            },
-                            // Error
-                            function (data) {
-                                console.log(data);
-                            }
-                        );
-                }
+                            }, function () {
+                                clearSearch();
+                            });
+                    }
 
-                initData();
-            }]);
+                    function clearSearch() {
+                        vm.search.Customer = "";
+                        saveSearch();
+                    }
+
+                    function saveSearch() {
+                        console.log('saveSearch(', vm.search.Customer, ')');
+                        if (!vm.search) {
+                            $localForage.setItem("Customer", "");
+                        } else {
+                            $localForage.setItem("Customer", vm.search.Customer);
+                        }
+                    }
+
+                    function initData() {
+                        var url = appSettings.apiUrlBase + '/wmis-accountlist';
+                        var config = {
+                            headers: {
+                                'x-cdata-authtoken': appSettings.apiAuth
+                            }
+                        };
+
+                        $http.get(url, config)
+                            .then(
+                                // Success
+                                function (data) {
+                                    formatData(data.data);
+                                },
+                                // Error
+                                function (data) {
+                                    console.log(data);
+                                }
+                            );
+                    }
+
+                    function formatData(inp) {
+                        var accts = inp.value;
+                        for (var i = 0; i < accts.length; i++) {
+                            var account = {
+                                id: accts[i].id,
+                                name: accts[i].FullName
+                            }
+                            vm.accounts.push(account);
+                        }
+                    }
+
+                    function doWork() {
+                        clearSearch();
+                        initData();
+                    }
+
+                    authService.isAuthenticated(doWork);
+                }]);
 }(window.angular));
