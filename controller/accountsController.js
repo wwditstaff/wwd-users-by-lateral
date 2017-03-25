@@ -6,13 +6,15 @@
         // in the form:  { id: (customer Number), name: (customer name)
         //
         .controller('accountsController',
-            ["appSettings", "$http", "$localForage", "$routeParams", "authService",
-                function (appSettings, $http, $localForage, $routeParams, authService) {
+            ["$scope", "appSettings", "$http", "$localForage", "$routeParams", "authService",
+                function ($scope, appSettings, $http, $localForage, $routeParams, authService) {
                     var vm = this;
 
                     vm.versionInfo = appSettings.version;
 
                     vm.accounts = [];
+
+                    // region Search Related Code
                     vm.search = {};
                     vm.saveSearch = saveSearch;
                     vm.clearSearch = clearSearch;
@@ -45,6 +47,34 @@
                             $localForage.setItem("Customer", vm.search);
                         }
                     }
+                    // endregion
+
+                    // region Page Related Code
+                    // Reference:
+                    // https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination#working-with-asynchronous-data
+                    vm.recordsPerPage = 10;
+                    vm.pagination = {
+                        current : 1
+                    }
+
+                    // Save current page into local db
+                    vm.pageChanged = function(newPage) {
+                        $localForage.setItem("CustomerPage", newPage);
+                    };
+
+                    function loadPageNumber() {
+                        $localForage.getItem("CustomerPage", function(storedVal) {
+                            if ( isNaN( storedVal) || ( storedVal == undefined ) ) {
+                                storedVal = 1;
+                            }
+                            vm.pagination.current = storedVal;
+                        },
+                        function() {
+                            vm.pagination.current = 1;
+                        });
+                    }
+
+                    // endregion
 
                     function initData() {
                         var url = appSettings.apiUrlBase + '/wmis-accountlist';
@@ -69,9 +99,14 @@
                     }
 
                     function doWork() {
-                        initData();
+                        loadPageNumber();
                         loadSearch();
+                        initData();
                     }
+
+                    $scope.$watch('vm.pagination.current', function() {
+                        console.log('Current Page Changed:', vm.pagination.current );
+                    });
 
                     authService.isAuthenticated(doWork);
                 }]);
