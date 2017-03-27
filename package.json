@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Users By Lateral",
   "main": "index.js",
+  "repository": "https://github.com/jcarter62/wwd-ublat.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "superstatic --port 3000 --host localhost "

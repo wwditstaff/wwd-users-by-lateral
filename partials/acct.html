@@ -18,8 +18,9 @@
         </div>
     </div>
     <div ng-repeat="item in vm.contacts | orderBy:['name','val'] " >
+        <hr class="contactdiv" ng-show="((item.displayName.length > 0) && ( $index > 0))">
         <div class="flexrow" ng-class="{oddRow: $index % 2 == 0}" >
-            <div class="item">{{item.name}}</div>
+            <div class="item"><strong>{{item.displayName}}</strong></div>
             <div class="item"><strong>{{item.val}}</strong></div>
             <div class="item"><strong>{{item.type}}</strong></div>
         </div>

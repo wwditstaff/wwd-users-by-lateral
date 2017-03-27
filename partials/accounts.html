@@ -18,8 +18,8 @@
          current-page="vm.pagination.current"
          ng-class="{oddRow: $index % 2 == 0}">
 
-        <div class="item">{{ item.id }}</div>
-        <div class="item">{{ item.FullName }}</div>
+        <div class="item"><a href="/account/{{item.id}}">{{ item.id }}</a></div>
+        <div class="item"><a href="/account/{{item.id}}">{{ item.FullName }}</a></div>
     </div>
     <dir-pagination-controls on-page-change="vm.pageChanged(newPageNumber)"></dir-pagination-controls>
 </div>

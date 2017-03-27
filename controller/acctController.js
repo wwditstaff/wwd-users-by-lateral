@@ -58,13 +58,20 @@
                             // Success
                             function (data) {
                                 var c = data.data.value;
+                                var saveName = "";
                                 for ( var i = 0; i < c.length; i++ ) {
-                                    var x = {};
-                                    vm.contacts.push( {
+                                    var x = new Object({
                                         name: c[i].fullname,
+                                        displayName: c[i].fullname,
                                         val: c[i].method,
                                         type: c[i].type
                                     });
+                                    if ( saveName == x.name ) {
+                                        x.displayName = "";
+                                    } else {
+                                        saveName = x.name;
+                                    }
+                                    vm.contacts.push(x);
                                 }
                             },
                             // Error

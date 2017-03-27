@@ -98,3 +98,9 @@ ul.horizontal2 a.active {
 
 .navbar {min-height:40px !important; height:40px; }
 
+.contactdiv {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 0;
+    border-top: 2px solid #bbb;
+}

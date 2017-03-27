@@ -6,7 +6,19 @@
             <div class="item-wide"><strong>{{item.val}}</strong></div>
         </div>
     </div>
-
+    <div ><a href="{{vm.gps}}" target="_blank">Map</a></div>
+    <hr>
+    <div class="flexrow">
+        <div class="item">Accounts</div>
+    </div>
+    <div ng-repeat="acct in vm.accounts" >
+        <div class="flexrow" ng-class="{oddRow: $index % 2 == 0}" >
+            <div class="item"><a href="/account/{{acct.account}}">{{acct.account}}</a></div>
+            <div class="item-wide"><a href="/account/{{acct.account}}">{{acct.fullname}}</a></div>
+        </div>
+    </div>
+    <hr>
 </div>
 <hr/>
+
 <i>Version : {{ vm.versionInfo }} </i>
