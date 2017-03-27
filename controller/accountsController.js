@@ -65,14 +65,26 @@
                     function loadPageNumber() {
                         $localForage.getItem("CustomerPage", function(storedVal) {
                             if ( isNaN( storedVal) || ( storedVal == undefined ) ) {
+                                console.log('loadPageNumber no page found');
                                 storedVal = 1;
                             }
+                            console.log('loadPageNumber ', storedVal);
                             vm.pagination.current = storedVal;
                         },
                         function() {
+                            console.log('loadPageNumber failure, set to 1');
                             vm.pagination.current = 1;
                         });
                     }
+
+                    $scope.$watch(
+                        function watchCurrent($scope) {
+                            return ( vm.pagination.current);
+                        },
+                        function handleChange(newVal, oldVal) {
+                            $scope.$applyAsync();
+                            console.log('Current: old(' + oldVal + '), new(' + newVal + ')');
+                        });
 
                     // endregion
 
@@ -89,6 +101,7 @@
                             .then(
                                 // Success
                                 function (data) {
+                                    loadPageNumber();
                                     vm.accounts = data.data.value;
                                 },
                                 // Error
@@ -99,14 +112,9 @@
                     }
 
                     function doWork() {
-                        loadPageNumber();
                         loadSearch();
                         initData();
                     }
-
-                    $scope.$watch('vm.pagination.current', function() {
-                        console.log('Current Page Changed:', vm.pagination.current );
-                    });
 
                     authService.isAuthenticated(doWork);
                 }]);
