@@ -25,6 +25,29 @@
             <div class="item"><strong>{{item.type}}</strong></div>
         </div>
     </div>
+    <hr>
+    <div class="flexrow">
+        <div class="item">Lateral</div>
+    </div>
+    <div ng-repeat="item in vm.laterals " >
+        <div class="flexrow" ng-class="{oddRow: $index % 2 == 0}" >
+            <div class="item"><a href="/lat/{{item.lateralname}}">{{item.lateralname}}</a></div>
+        </div>
+    </div>
+    <hr>
+    <div class="flexrow">
+        <div class="item">Lateral</div>
+        <div class="item">Meter ID</div>
+        <div class="item">Geographic</div>
+    </div>
+    <div ng-repeat="meter in vm.meters " >
+        <div class="flexrow" ng-class="{oddRow: $index % 2 == 0}" >
+            <div class="item">{{meter.lateralname}}</div>
+            <div class="item"><a href="/meter/{{meter.meterid}}">{{meter.meterid}}</a></div>
+            <div class="item"><a href="/meter/{{meter.meterid}}">{{meter.geo}}</a></div>
+        </div>
+    </div>
+    <hr>
 </div>
 <hr/>
 <i>Version : {{ vm.versionInfo }} </i>

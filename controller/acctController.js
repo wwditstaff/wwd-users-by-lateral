@@ -11,7 +11,11 @@
                 vm.account = [];
                 vm.contacts = [];
 
-                function initData() {
+                vm.laterals = [];
+                vm.meters = [];
+
+                // region Get Account Data
+                function getAccountData() {
                     var url = appSettings.apiUrlBase + '/wmis-account(' + vm.accountid + ')';
                     var config = {
                         headers: {
@@ -80,7 +84,51 @@
                             }
                         );
                 }
+                // endregion
 
-                initData();
+                // region Get Lateral Data for Account
+                function getLateralData() {
+                    var url = appSettings.apiUrlBase + '/wp-sp-accountlats';
+                    var formData = { account: vm.accountid };
+                    var config = {headers: {'x-cdata-authtoken': appSettings.apiAuth}};
+
+                    $http.post(url, formData, config)
+                        .then(
+                            // Success
+                            function (data) {
+                                vm.laterals = data.data.value;
+                            },
+                            // Error
+                            function (data) {
+                                console.log(data);
+                            }
+                        );
+                }
+                // endregion
+
+                // region Get Meters Data for Account
+                function getMeterData() {
+                    var url = appSettings.apiUrlBase + '/wp-sp-accountMeters';
+                    var formData = { account: vm.accountid };
+                    var config = {headers: {'x-cdata-authtoken': appSettings.apiAuth}};
+
+                    $http.post(url, formData, config)
+                        .then(
+                            // Success
+                            function (data) {
+                                vm.meters = data.data.value;
+                            },
+                            // Error
+                            function (data) {
+                                console.log(data);
+                            }
+                        );
+                }
+                // endregion
+
+                getAccountData();
+                getLateralData();
+                getMeterData();
+
             }]);
 }(window.angular));

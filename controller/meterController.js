@@ -51,7 +51,8 @@
                     //
                     // https://moz.com/ugc/everything-you-never-wanted-to-know-about-google-maps-parameters
                     //
-                    vm.gps = 'https://www.google.com/maps?q=' + inp.Latitude +',' + inp.Longitude +
+                    vm.gps = 'https://www.google.com/maps?' +
+                        'q=' + inp.Latitude +',' + inp.Longitude +
                         '&z=22&t=h';
                     loadAccounts();
                 }
