@@ -6,7 +6,7 @@
   "repository": "https://github.com/jcarter62/wwd-ublat.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "superstatic --port 3000 --host localhost "
+    "start": "superstatic --port 3200 --host localhost "
   },
   "author": "Jim Carter",
   "license": "ISC",
