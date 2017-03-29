@@ -5,10 +5,11 @@
         .controller("menuController", ["appSettings", "authService", function (appSettings, authService) {
             var vm = this;
             vm.title = appSettings.title;
+            var prefix = "/wwd-ublat/";
 
             vm.menu = [
-                {name: 'Laterals', path: '/lat'},
-                {name: 'Accounts', path: '/accounts'}
+                {name: 'Laterals', path: prefix + "lat"},
+                {name: 'Accounts', path: prefix + "accounts"}
             ];
 
             authService.isUserAuthenticated(
