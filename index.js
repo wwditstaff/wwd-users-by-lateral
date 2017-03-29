@@ -13,39 +13,40 @@
         .config(
             function ($locationProvider, $routeProvider) {
                 $locationProvider.html5Mode(true);
+                var prefix = "/wwd-ublat/";
 
                 $routeProvider
-                    .when("/login", {
+                    .when(prefix + "login", {
                         templateUrl: "/partials/login.html",
                         controller: "loginController",
                         controllerAs: "vm"
                     })
-                    .when("/logout", {
+                    .when(prefix + "logout", {
                         templateUrl: "/partials/logout.html",
                         controller: "logoutController",
                         controllerAs: "vm"
                     })
-                    .when("/lat", {
+                    .when(prefix + "lat", {
                         templateUrl: "/partials/lat.html",
                         controller: "latController",
                         controllerAs: "vm"
                     })
-                    .when("/lat/:id", {
+                    .when(prefix + "lat/:id", {
                         templateUrl: "/partials/latone.html",
                         controller: "latOneController",
                         controllerAs: "vm"
                     })
-                    .when("/meter/:id", {
+                    .when(prefix + "meter/:id", {
                         templateUrl: "/partials/meter.html",
                         controller: "meterController",
                         controllerAs: "vm"
                     })
-                    .when("/account/:id", {
+                    .when(prefix + "account/:id", {
                         templateUrl: "/partials/acct.html",
                         controller: "acctController",
                         controllerAs: "vm"
                     })
-                    .when("/accounts", {
+                    .when(prefix + "accounts", {
                         templateUrl: "/partials/accounts.html",
                         controller: "accountsController",
                         controllerAs: "vm"
