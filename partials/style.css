@@ -104,3 +104,8 @@ ul.horizontal2 a.active {
     border: 0;
     border-top: 2px solid #bbb;
 }
+
+.width50 {
+    margin-left: 25%;
+    margin-right: 25%;
+}

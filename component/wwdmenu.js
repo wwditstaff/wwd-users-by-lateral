@@ -5,7 +5,8 @@
         .controller("menuController", ["appSettings", "authService", function (appSettings, authService) {
             var vm = this;
             vm.title = appSettings.title;
-            var prefix = "/wwd-ublat/";
+            var prefix = "/";
+            vm.authenticated = false;
 
             vm.menu = [
                 {name: 'Laterals', path: prefix + "lat"},
@@ -15,11 +16,11 @@
             authService.isUserAuthenticated(
                 // Success - Authenticated
                 function () {
-                    vm.menu.push({name: 'Logout', path: '/logout'});
+                    vm.authenticated = true;
                 },
                 // Failure - Not Authenticated.
                 function () {
-
+                    vm.authenticated = false;
                 }
             );
         }])

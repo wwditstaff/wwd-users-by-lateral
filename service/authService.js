@@ -11,9 +11,16 @@
                     .then(
                         // Success
                         function(value) {
+                            var tsNow = new Date( Date.now() );
                             if ( value ) {
-                                console.log('user Authorized', value );
-                                success();
+                                // we have a value, check time stamp
+                                if ( tsNow < value.ts ) {
+                                    if (value.token > '' )
+                                        console.log('user Authorized');
+                                    success();
+                                } else {
+                                    $location.path('/login');
+                                }
                             } else {
                                 console.log('user Not Authorized, redirecting to /login');
                                 $location.path('/login');

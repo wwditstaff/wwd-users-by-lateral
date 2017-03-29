@@ -13,7 +13,7 @@
         .config(
             function ($locationProvider, $routeProvider) {
                 $locationProvider.html5Mode(true);
-                var prefix = "/wwd-ublat/";
+                var prefix = "/";
 
                 $routeProvider
                     .when(prefix + "login", {

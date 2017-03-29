@@ -12,10 +12,7 @@
             vm.authtoken = "";
 
             vm.loginclick = function() {
-                console.log('username = ', vm.username );
-                console.log('password = ', vm.password );
                 try2auth(vm.username, vm.password );
-
             }
 
             function try2auth(user, pass) {
@@ -24,7 +21,8 @@
 
                 var formData = {
                     username: user,
-                    userpass: pass
+                    userpass: pass,
+                    app: 'users by lateral'
                 };
 
                 var config = {
@@ -38,7 +36,7 @@
                         // Success
                         function (data) {
                             vm.authtoken = data.data.value[0].result;
-                            console.log("vm.authtoken:" , vm.authtoken);
+//                            console.log("vm.authtoken:" , vm.authtoken);
                             process_result();
                         },
                         // Error
@@ -51,8 +49,17 @@
             function process_result() {
                 if ( vm.authtoken == "authorized") {
                     var newid = uid(20);
-                    $localForage.setItem("token", newid );
+                    var oneDayinMS = 1000 * 60 * 60 * 24;
+                    //               1 sec  sec  min  hrs
+                    var timeStamp = new Date(Date.now() + (oneDayinMS * 1) );
+                    var obj = {
+                        "token": newid,
+                        "ts": timeStamp
+                    }
+                    $localForage.setItem("token", obj );
+
                     $location.path('/');
+
                 } else {
                     $location.path('/login');
                 }
