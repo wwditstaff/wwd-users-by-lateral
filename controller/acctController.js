@@ -2,7 +2,8 @@
     angular
         .module("ublat")
         .controller('acctController',
-            ["appSettings", "$http", "$routeParams", function (appSettings, $http, $routeParams) {
+            [   "appSettings", "$http", "$routeParams", "authService",
+                function (appSettings, $http, $routeParams, authService) {
                 var vm = this;
 
                 vm.versionInfo = appSettings.version;
@@ -126,9 +127,13 @@
                 }
                 // endregion
 
-                getAccountData();
-                getLateralData();
-                getMeterData();
+                function doWork() {
+                    getAccountData();
+                    getLateralData();
+                    getMeterData();
+                }
+
+                authService.isAuthenticated(doWork);
 
             }]);
 }(window.angular));

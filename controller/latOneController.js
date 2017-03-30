@@ -2,8 +2,8 @@
     angular
         .module("ublat")
         .controller('latOneController',
-            ["appSettings", "$http", "$routeParams", "$window", "$localForage",
-                function (appSettings, $http, $routeParams, $window, $localForage ) {
+            ["appSettings", "$http", "$routeParams", "$window", "$localForage", "authService",
+                function (appSettings, $http, $routeParams, $window, $localForage, authService ) {
                 var vm = this;
 
                 vm.versionInfo = appSettings.version;
@@ -15,6 +15,7 @@
                 vm.saveSearch = saveSearch;
                 vm.clearSearch = clearSearch;
 
+                // region Search
                 function loadSearch() {
                     var storedval = "";
                     $localForage.getItem("Meter")
@@ -49,7 +50,9 @@
                         vm.search.fullname = s;
                     }
                 }
+                // endregion Search
 
+                // region Request Data
                 function initData() {
                     var url = appSettings.apiUrlBase + '/wp-meterbylat/';
                     var formData = {
@@ -79,8 +82,13 @@
                             }
                         );
                 }
+                // endregion Request Data
 
-                initData();
-                loadSearch();
+                function doWork() {
+                    initData();
+                    loadSearch();
+                }
+
+                authService.isAuthenticated(doWork);
             }]);
 }(window.angular));

@@ -2,7 +2,8 @@
     angular
         .module("ublat")
         .controller('meterController',
-            ["appSettings", "$http", "$routeParams", "$window", function (appSettings, $http, $routeParams, $window) {
+            [   "appSettings", "$http", "$routeParams", "$window", "authService",
+                function (appSettings, $http, $routeParams, $window, authService) {
                 var vm = this;
 
                 vm.versionInfo = appSettings.version;
@@ -14,6 +15,7 @@
                 vm.accounts = [{account: "Loading...", name:""}];
                 vm.gps = "";
 
+                // region Request Data
                 function initData() {
                     var url = appSettings.apiUrlBase + '/wp-v-wtr-asset(' + vm.meterid + ')';
                     var config = {
@@ -34,7 +36,9 @@
                             }
                         );
                 }
+                // endregion Request Data
 
+                // region Prepare Data
                 function formatData(inp) {
                     vm.meter = [];
                     vm.meter.push( {name: "Meter ID", val: inp.meter_id});
@@ -80,7 +84,12 @@
                             }
                         );
                 }
+                // endregion Prepare Data
 
-                initData();
+                function doWork() {
+                    initData();
+                }
+
+                authService.isAuthenticated(doWork);
             }]);
 }(window.angular));

@@ -51,7 +51,7 @@
                     var newid = uid(20);
                     var oneDayinMS = 1000 * 60 * 60 * 24;
                     //               1 sec  sec  min  hrs
-                    var timeStamp = new Date(Date.now() + (oneDayinMS * 1) );
+                    var timeStamp = new Date(Date.now() + (oneDayinMS * 30) );
                     var obj = {
                         "token": newid,
                         "ts": timeStamp

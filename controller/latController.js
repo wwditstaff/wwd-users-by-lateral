@@ -15,6 +15,7 @@
                     vm.saveSearch = saveSearch;
                     vm.clearSearch = clearSearch;
 
+                    // region Search
                     function loadSearch() {
                         var storedval = "";
                         $localForage.getItem("LatName")
@@ -44,6 +45,7 @@
                             $localForage.setItem("LatName", vm.search.LatName);
                         }
                     }
+                    // endregion Search
 
                     function initLateralList() {
                         var url =
