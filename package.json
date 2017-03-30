@@ -2,11 +2,11 @@
   "name": "ublat",
   "version": "1.0.0",
   "description": "Users By Lateral",
-  "main": "index.js",
+  "main": "app.js",
   "repository": "https://github.com/jcarter62/wwd-ublat.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "superstatic --port 3200 --host localhost "
+    "start": "node app"
   },
   "author": "Jim Carter",
   "license": "ISC",
