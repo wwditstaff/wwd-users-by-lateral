@@ -14,13 +14,6 @@
                 <li class="active" ng-repeat="m in vm.menu">
                     <a href="{{ m.path }}">{{ m.name }}</a>
                 </li>
-                <li ng-show="(vm.authenticated == false)" >
-                    <a href="/login">Login</a>
-                </li>
-                <li ng-show="(vm.authenticated == true)" >
-                    <a href="/logout">Logout</a>
-                </li>
-
             </ul>
         </div><!--/.nav-collapse -->
     </div>

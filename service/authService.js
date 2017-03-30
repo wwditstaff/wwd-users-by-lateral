@@ -1,7 +1,9 @@
 (function(angular) {
     angular
         .module("ublat")
-        .service('authService',["$localForage","$location",function($localForage, $location) {
+        .service('authService',
+            [   "$localForage","$location",
+                function($localForage, $location) {
             var vm = this;
             vm.isAuthenticated = checkAuthAndRedirect;
             vm.isUserAuthenticated = isUserAuthenticated;
