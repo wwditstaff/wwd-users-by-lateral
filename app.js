@@ -11,7 +11,7 @@ var superstatic = require('superstatic/lib/server');
 var spec = {
     port: 3200,
     gzip: true,
-    debug: true,
+    debug: false,
     "rewrites": [
         {
             "source": "**",

@@ -1,0 +1,28 @@
+<div class="container-fluid">
+
+    <div class="flexrow">
+        <h3 class="item">Meters</h3>
+        <div class="item">
+            <input type="text" ng-model="vm.search.Value" ng-change="vm.saveSearch()" placeholder="Meter" >
+            <button ng-click="vm.clearSearch()">Clear</button>
+        </div>
+    </div>
+
+    <div class="flexrow">
+        <div class="item-opt">Meter ID</div>
+        <div class="item">Geo</div>
+        <div class="item-opt">Lateral</div>
+    </div>
+    <!--<div class="row" ng-repeat="meter in vm.meters"-->
+    <!--ng-class="{oddRow: $index % 2 == 0 }" >-->
+    <div class="flexrow"
+         dir-paginate="meter in vm.meters | filter:vm.search.Value | itemsPerPage: 10 "
+         ng-class="{oddRow: $index % 2 == 0 }">
+        <div class="item"><a href="/meter/{{meter.meter}}">{{meter.meter}}</a></div>
+        <div class="item-opt">{{meter.geo}}</div>
+        <div class="item-opt"><a href="/lat/{{meter.latname}}">{{meter.latname}}</a></div>
+    </div>
+    <dir-pagination-controls></dir-pagination-controls>
+</div>
+<hr/>
+<i>Version : {{ vm.versionInfo }} </i>

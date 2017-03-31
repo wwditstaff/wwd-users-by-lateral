@@ -15,6 +15,7 @@
                 vm.menu = [];
                 vm.menu.push({name: 'Laterals', path:"/lat", type:'menu'});
                 vm.menu.push({name: 'Accounts', path:"/accounts", type:'menu'});
+                vm.menu.push({name: 'Meters', path:"/meters", type:'menu'});
                 vm.menu.push({name: '', path:"/", type:'auth'});
             }
 

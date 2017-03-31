@@ -5,6 +5,7 @@
         author  : "Jim Carter",
         apiUrlBase : 'https://cdata.api.wwddata.com/api.rsc',
         apiAuth: "7v9E0i9g7Q2i2v7V5d3t",
+        apiMap: "AIzaSyA8GYa_nDEZM7hWfZ46dlepNaT6wYdoDVM"
     };
 
     angular
@@ -49,6 +50,11 @@
                     .when(prefix + "accounts", {
                         templateUrl: "/partials/accounts.html",
                         controller: "accountsController",
+                        controllerAs: "vm"
+                    })
+                    .when(prefix + "meters", {
+                        templateUrl: "/partials/meters.html",
+                        controller: "metersController",
                         controllerAs: "vm"
                     })
                     .otherwise({

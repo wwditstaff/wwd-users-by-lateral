@@ -109,3 +109,9 @@ ul.horizontal2 a.active {
     margin-left: 25%;
     margin-right: 25%;
 }
+
+/*https://css-tricks.com/viewport-sized-typography/*/
+h1 {  font-size: 7.0vw;  }
+h2 {  font-size: 5.0vh;  }
+h3 { font-size: 4.0vh;}
+body { font-size: 3.0vmin; }
