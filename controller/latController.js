@@ -2,8 +2,8 @@
     angular
         .module("ublat")
         .controller('latController',
-            ["appSettings", "$http", "$localForage", "$location", "authService",
-                function (appSettings, $http, $localForage, $location, authService) {
+            ["appSettings", "$http", "$location", "authService",
+                function (appSettings, $http, $location, authService) {
                     var vm = this;
 
                     console.log('latController Start.');
@@ -18,17 +18,12 @@
                     // region Search
                     function loadSearch() {
                         var storedval = "";
-                        $localForage.getItem("LatName")
-                            .then(function (data) {
-                                storedval = data;
-                                if (storedval) {
-                                    vm.search.LatName = storedval;
-                                } else {
-                                    clearSearch();
-                                }
-                            }, function () {
-                                clearSearch();
-                            });
+                        storedval = localStorage.getItem("LatName");
+                        if (storedval) {
+                            vm.search.LatName = storedval;
+                        } else {
+                            clearSearch();
+                        }
                     }
 
                     function clearSearch() {
@@ -40,11 +35,12 @@
                         console.log('saveSearch(', vm.search.LatName, ')');
 
                         if (!vm.search) {
-                            $localForage.setItem("LatName", "");
+                            localStorage.setItem("LatName", "");
                         } else {
-                            $localForage.setItem("LatName", vm.search.LatName);
+                            localStorage.setItem("LatName", vm.search.LatName);
                         }
                     }
+
                     // endregion Search
 
                     function initLateralList() {

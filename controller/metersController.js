@@ -2,31 +2,26 @@
     angular
         .module("ublat")
         .controller('metersController',
-            [   "appSettings", "$http", "$routeParams", "$window", "authService","$localForage",
-                function (appSettings, $http, $routeParams, $window, authService, $localForage) {
+            ["appSettings", "$http", "$routeParams", "$window", "authService",
+                function (appSettings, $http, $routeParams, $window, authService) {
                     var vm = this;
 
                     vm.versionInfo = appSettings.version;
                     vm.meters = [];
 
-                    vm.search = { Value:"" };
+                    vm.search = {Value: ""};
                     vm.saveSearch = saveSearch;
                     vm.clearSearch = clearSearch;
 
                     // region Search
                     function loadSearch() {
                         var storedVal = "";
-                        $localForage.getItem("Meters")
-                            .then( function(data) {
-                                storedVal = data;
-                                if ( storedVal ) {
-                                    vm.search.Value = storedVal;
-                                } else {
-                                    clearSearch();
-                                }
-                            }, function(data) {
-                                vm.search.Value = "";
-                            })
+                        storedVal = localStorage.getItem("Meters");
+                        if (storedVal) {
+                            vm.search.Value = storedVal;
+                        } else {
+                            clearSearch();
+                        }
                     }
 
                     function clearSearch() {
@@ -37,14 +32,15 @@
                     function saveSearch() {
                         console.log('saveSearch(', vm.search.Value, ')');
 
-                        if ( vm.search.Value == "" ) {
-                            $localForage.setItem("Meters", "" );
+                        if (vm.search.Value == "") {
+                            localStorage.setItem("Meters", "");
                         } else {
                             var s = vm.search.Value;
-                            $localForage.setItem("Meters", s );
+                            localStorage.setItem("Meters", s);
                             vm.search.Value = s;
                         }
                     }
+
                     // endregion Search
 
                     // region Request Data
@@ -65,6 +61,7 @@
                                 }
                             );
                     }
+
                     // endregion Request Data
 
                     function doWork() {

@@ -6,8 +6,8 @@
         // in the form:  { id: (customer Number), name: (customer name)
         //
         .controller('accountsController',
-            ["$scope", "appSettings", "$http", "$localForage", "$routeParams", "authService",
-                function ($scope, appSettings, $http, $localForage, $routeParams, authService) {
+            ["$scope", "appSettings", "$http", "$routeParams", "authService",
+                function ($scope, appSettings, $http, $routeParams, authService) {
                     var vm = this;
 
                     vm.versionInfo = appSettings.version;
@@ -21,17 +21,12 @@
 
                     function loadSearch() {
                         var storedValue = "";
-                        $localForage.getItem("Customer")
-                            .then(function (data) {
-                                storedValue = data;
-                                if (storedValue) {
-                                    vm.search = storedValue;
-                                } else {
-                                    clearSearch();
-                                }
-                            }, function () {
-                                clearSearch();
-                            });
+                        storedValue = localStorage.getItem("Customer");
+                        if (storedValue) {
+                            vm.search = storedValue;
+                        } else {
+                            clearSearch();
+                        }
                     }
 
                     function clearSearch() {
@@ -42,11 +37,12 @@
                     function saveSearch() {
                         console.log('saveSearch(', vm.search, ')');
                         if (!vm.search) {
-                            $localForage.setItem("Customer", "");
+                            localStorage.setItem("Customer", "");
                         } else {
-                            $localForage.setItem("Customer", vm.search);
+                            localStorage.setItem("Customer", vm.search);
                         }
                     }
+
                     // endregion
 
                     // region Page Related Code
@@ -54,27 +50,22 @@
                     // https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination#working-with-asynchronous-data
                     vm.recordsPerPage = 10;
                     vm.pagination = {
-                        current : 1
+                        current: 1
                     }
 
                     // Save current page into local db
-                    vm.pageChanged = function(newPage) {
-                        $localForage.setItem("CustomerPage", newPage);
+                    vm.pageChanged = function (newPage) {
+                        localStorage.setItem("CustomerPage", newPage);
                     };
 
                     function loadPageNumber() {
-                        $localForage.getItem("CustomerPage", function(storedVal) {
-                            if ( isNaN( storedVal) || ( storedVal == undefined ) ) {
-                                console.log('loadPageNumber no page found');
-                                storedVal = 1;
-                            }
-                            console.log('loadPageNumber ', storedVal);
-                            vm.pagination.current = storedVal;
-                        },
-                        function() {
-                            console.log('loadPageNumber failure, set to 1');
-                            vm.pagination.current = 1;
-                        });
+                        var storedVal = localStorage.getItem("CustomerPage");
+                        if (isNaN(storedVal) || ( storedVal == undefined )) {
+                            console.log('loadPageNumber no page found');
+                            storedVal = 1;
+                        }
+                        console.log('loadPageNumber ', storedVal);
+                        vm.pagination.current = storedVal;
                     }
 
                     $scope.$watch(

@@ -1,8 +1,8 @@
 (function(angular) {
     angular
         .module("ublat")
-        .controller('loginController',["appSettings","$localForage","$http", "$location",
-            function(appSettings, $localForage, $http, $location) {
+        .controller('loginController',["appSettings","$http", "$location",
+            function(appSettings, $http, $location) {
             var vm = this;
             vm.title = appSettings.title;
 
@@ -36,7 +36,6 @@
                         // Success
                         function (data) {
                             vm.authtoken = data.data.value[0].result;
-//                            console.log("vm.authtoken:" , vm.authtoken);
                             process_result();
                         },
                         // Error
@@ -48,7 +47,7 @@
 
             function process_result() {
                 if ( vm.authtoken == "authorized") {
-                    var newid = uid(20);
+                    var newid = randomString(60);
                     var oneDayinMS = 1000 * 60 * 60 * 24;
                     //               1 sec  sec  min  hrs
                     var timeStamp = new Date(Date.now() + (oneDayinMS * 30) );
@@ -56,7 +55,7 @@
                         "token": newid,
                         "ts": timeStamp
                     }
-                    $localForage.setItem("token", obj );
+                    localStorage.setItem("token", JSON.stringify(obj) );
 
                     $location.path('/');
 
@@ -65,9 +64,11 @@
                 }
             }
 
-                function uid(len) {
+                function randomString(len) {
                     len = len || 7;
-                    return Math.random().toString(35).substr(2, len);
+                    var r1 = Math.random().toString(35);
+                    var r2 = Math.random().toString(35);
+                    return ( r1 + r2 ).substr(2, len);
                 }
         }]);
 }(window.angular));

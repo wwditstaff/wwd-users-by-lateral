@@ -1,8 +1,8 @@
 (function(angular) {
     angular
         .module("ublat")
-        .controller('logoutController',["appSettings","$localForage","$location",
-            function(appSettings, $localForage, $location) {
+        .controller('logoutController',["appSettings","$location",
+            function(appSettings, $location) {
                 var vm = this;
                 vm.title = appSettings.title;
                 vm.versionInfo = appSettings.version;
@@ -12,7 +12,7 @@
                 }
 
                 function wipeToken() {
-                    $localForage.removeItem("token");
+                    localStorage.removeItem("token");
                 }
 
                 wipeToken();
