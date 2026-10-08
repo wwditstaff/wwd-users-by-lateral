@@ -4,7 +4,7 @@
         version : 1.0,
         author  : "Jim Carter",
         apiUrlBase : 'https://cdata.api.wwddata.com/api.rsc',
-        apiAuth: "7v9E0i9g7Q2i2v7V5d3t",
+        apiAuth: "6r5Y3r5r1C9i1h2T7o8a",
         apiMap: "AIzaSyA8GYa_nDEZM7hWfZ46dlepNaT6wYdoDVM"
     };
 
